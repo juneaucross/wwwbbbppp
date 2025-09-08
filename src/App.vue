@@ -59,11 +59,7 @@ const onCalendarConfirm = (value) => {
     <Button block type="primary">Забронировать место</Button>
   </section>
 
-
-  <!-- <router-view></router-view> -->
-
   <footer>
-
     <AppTabBar />
   </footer>
 </template>
