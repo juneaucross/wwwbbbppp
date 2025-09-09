@@ -1,8 +1,8 @@
 <template>
   <header class="header">
-    <Button type="primary" icon="info-o" />
+    <van-button type="primary" icon="send-gift-o" />
     <h1>WPB</h1>
-    <Button type="primary" icon="info-o" />
+    <van-button type="primary" icon="info-o" />
   </header>
 </template>
 

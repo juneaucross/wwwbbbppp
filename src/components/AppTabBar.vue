@@ -1,10 +1,10 @@
 <template>
-  <Tabbar v-model="active">
-    <TabbarItem icon="home-o">Бронь</TabbarItem>
-    <TabbarItem icon="search">Журнал</TabbarItem>
-    <TabbarItem icon="friends-o">Этажи</TabbarItem>
-    <TabbarItem icon="setting-o">КИР</TabbarItem>
-  </Tabbar>
+  <van-tabbar v-model="active">
+    <van-tabbar-item icon="home-o">Бронь</van-tabbar-item>
+    <van-tabbar-item icon="search">Журнал</van-tabbar-item>
+    <van-tabbar-item icon="friends-o">Этажи</van-tabbar-item>
+    <van-tabbar-item icon="setting-o">КИР</van-tabbar-item>
+  </van-tabbar>
 </template>
 
 <script setup>

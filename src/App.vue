@@ -35,26 +35,27 @@ const onCalendarConfirm = (value) => {
 
 <template>
   <AppHeader />
-  <!-- <AppActionBar /> -->
+  <AppActionBar />
 
-  <Field v-model="fieldValue" is-link readonly label="Слот" placeholder="Выберите слот" @click="showPicker = true" />
-  <Popup v-model:show="showPicker" destroy-on-close round position="bottom">
-    <Picker :model-value="pickerValue" title="Слот" :columns="columns" @cancel="showPicker = false"
+  <van-field v-model="fieldValue" is-link readonly label="Слот" placeholder="Выберите слот"
+    @click="showPicker = true" />
+  <van-popup v-model:show="showPicker" destroy-on-close round position="bottom">
+    <van-picker :model-value="pickerValue" title="Слот" :columns="columns" @cancel="showPicker = false"
       @confirm="onConfirm" />
-  </Popup>
+  </van-popup>
 
-  <Cell title="Дата" :value="date" @click="show = true" />
-  <Calendar v-model:show="show" @confirm="onCalendarConfirm" />
+  <van-cell title="Дата" :value="date" @click="show = true" />
+  <van-calendar v-model:show="show" @confirm="onCalendarConfirm" />
 
   <section class="favorite-places">
     <h4>Ваши избранные места</h4>
 
-    <Button block disabled plain type="primary">814/16</Button>
-    <Button block disabled plain type="primary">814/15</Button>
+    <van-button block disabled plain type="primary">814/16</van-button>
+    <van-button block disabled plain type="primary">814/15</van-button>
   </section>
 
   <section class="butt">
-    <Button block type="primary">Забронировать место</Button>
+    <van-button block type="primary">Забронировать место</van-button>
   </section>
 
   <footer>
