@@ -6,10 +6,6 @@
   </header>
 </template>
 
-<script setup>
-import { Button } from 'vant';
-</script>
-
 <style scoped>
 .header {
   display: flex;

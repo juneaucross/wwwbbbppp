@@ -5,10 +5,6 @@
   </ActionBar>
 </template>
 
-<script setup>
-import { ActionBar, ActionBarButton } from 'vant';
-</script>
-
 <style scoped>
 .van-action-bar {
   bottom: unset !important;

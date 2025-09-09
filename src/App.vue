@@ -3,8 +3,6 @@ import AppTabBar from '@/components/AppTabBar.vue';
 import AppHeader from '@/components/AppHeader.vue';
 import AppActionBar from '@/components/AppActionBar.vue';
 
-import { Picker, Field, Popup, Cell, Calendar, Tag, Button, Sticky } from 'vant';
-
 import { ref } from 'vue';
 
 const columns = [
@@ -37,7 +35,7 @@ const onCalendarConfirm = (value) => {
 
 <template>
   <AppHeader />
-  <AppActionBar />
+  <!-- <AppActionBar /> -->
 
   <Field v-model="fieldValue" is-link readonly label="Слот" placeholder="Выберите слот" @click="showPicker = true" />
   <Popup v-model:show="showPicker" destroy-on-close round position="bottom">
