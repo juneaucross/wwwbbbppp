@@ -9,7 +9,11 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "format:check": "prettier --check ."
+  },
+  "resolutions": {
+    "rollup": "4.50.0"
   },
   "dependencies": {
     "pinia": "^3.0.3",
@@ -26,7 +30,7 @@
     "globals": "^16.3.0",
     "prettier": "3.6.2",
     "unplugin-vue-components": "^29.0.0",
-    "vite": "^7.0.6",
+    "vite": "npm:rolldown-vite@latest",
     "vite-plugin-vue-devtools": "^8.0.0"
   }
 }
