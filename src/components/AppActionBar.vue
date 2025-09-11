@@ -1,381 +1,122 @@
 <template>
   <!-- v-if="stateStore.state === 'date'" -->
-  <van-tabs
-    v-model:active="activeTab"
-    type="card"
-    class="tab"
-  >
-    <van-tab
-      title="Себе"
-      name="self"
-      class="tab"
-    >
-      <van-field
-        v-model="fieldValue"
-        is-link
-        readonly
-        label="Слот"
-        placeholder="Выберите слот"
-        @click="showPicker = true"
-      />
-      <van-popup
-        v-model:show="showPicker"
-        destroy-on-close
-        round
-        position="bottom"
-      >
-        <van-picker
-          :model-value="pickerValue"
-          title="Слот"
-          :columns="columns"
-          @cancel="showPicker = false"
-          @confirm="onConfirm"
-        />
+  <van-tabs v-model:active="activeTab" type="card" class="tab">
+    <van-tab title="Себе" name="self" class="tab">
+      <van-field v-model="fieldValue" is-link readonly label="Слот" placeholder="Выберите слот"
+        @click="showPicker = true" />
+      <van-popup v-model:show="showPicker" destroy-on-close round position="bottom">
+        <van-picker :model-value="pickerValue" title="Слот" :columns="columns" @cancel="showPicker = false"
+          @confirm="onConfirm" />
       </van-popup>
 
-      <van-cell
-        title="Дата"
-        :value="date"
-        @click="show = true"
-      />
-      <van-calendar
-        v-model:show="show"
-        @confirm="onCalendarConfirm"
-      />
+      <van-cell title="Дата" :value="date" @click="show = true" />
+      <van-calendar v-model:show="show" @confirm="onCalendarConfirm" />
 
       <section class="favorite-places">
         <h4>Ваши избранные места</h4>
-        <van-button
-          block
-          plain
-          type="primary"
-          @click="roomFieldValue = '814/16'"
-          >814/16</van-button
-        >
-        <van-button
-          block
-          plain
-          type="primary"
-          @click="roomFieldValue = '814/15'"
-          >814/15</van-button
-        >
+        <van-button block plain type="primary" @click="roomFieldValue = '814/16'">814/16</van-button>
+        <van-button block plain type="primary" @click="roomFieldValue = '814/15'">814/15</van-button>
       </section>
 
       <div>
-        <van-tabs
-          v-model:active="activeRoomTab"
-          type="card"
-          class="tab"
-          @click-tab="onClickTab"
-        >
-          <van-tab
-            title="Фиксированные"
-            name="fixed"
-            class="tab"
-          >
-            <van-field
-              v-model="roomFieldValue"
-              is-link
-              readonly
-              label="Номер"
-              placeholder="Номер"
-              @click="showRoomPicker = true"
-            />
-            <van-popup
-              v-model:show="showRoomPicker"
-              destroy-on-close
-              round
-              position="bottom"
-            >
-              <van-picker
-                :model-value="roomPickerValue"
-                title="Кому"
-                :columns="fixed"
-                @cancel="showRoomPicker = false"
-                @confirm="onRoomConfirm"
-              />
+        <van-tabs v-model:active="activeRoomTab" type="card" class="tab" @click-tab="onClickTab">
+          <van-tab title="Фиксированные" name="fixed" class="tab">
+            <van-field v-model="roomFieldValue" is-link readonly label="Номер" placeholder="Номер комнаты"
+              @click="showRoomPicker = true" />
+            <van-popup v-model:show="showRoomPicker" destroy-on-close round position="bottom">
+              <van-picker :model-value="roomPickerValue" title="Номер" :columns="fixed" @cancel="showRoomPicker = false"
+                @confirm="onRoomConfirm" />
             </van-popup>
           </van-tab>
-          <van-tab
-            title="Кабинеты"
-            name="cabinets"
-            class="tab"
-          >
-            <van-field
-              v-model="roomFieldValue"
-              is-link
-              readonly
-              label="Номер"
-              placeholder="Номер"
-              @click="showRoomPicker = true"
-            />
-            <van-popup
-              v-model:show="showRoomPicker"
-              destroy-on-close
-              round
-              position="bottom"
-            >
-              <van-picker
-                :model-value="roomPickerValue"
-                title="Номер"
-                :columns="cabinets"
-                @cancel="showRoomPicker = false"
-                @confirm="onRoomConfirm"
-              />
+          <van-tab title="Кабинеты" name="cabinets" class="tab">
+            <van-field v-model="roomFieldValue" is-link readonly label="Номер" placeholder="Номер кабинета"
+              @click="showRoomPicker = true" />
+            <van-popup v-model:show="showRoomPicker" destroy-on-close round position="bottom">
+              <van-picker :model-value="roomPickerValue" title="Номер" :columns="cabinets"
+                @cancel="showRoomPicker = false" @confirm="onRoomConfirm" />
             </van-popup>
           </van-tab>
-          <van-tab
-            title="Опен-спейс"
-            name="open-space"
-            class="tab"
-          >
-            <van-field
-              v-model="roomFieldValue"
-              is-link
-              readonly
-              label="Номер"
-              placeholder="Номер"
-              @click="showRoomPicker = true"
-            />
-            <van-popup
-              v-model:show="showRoomPicker"
-              destroy-on-close
-              round
-              position="bottom"
-            >
-              <van-picker
-                :model-value="roomPickerValue"
-                title="Номер"
-                :columns="openSpace"
-                @cancel="showRoomPicker = false"
-                @confirm="onRoomConfirm"
-              />
+          <van-tab title="Опен-спейс" name="open-space" class="tab">
+            <van-field v-model="roomFieldValue" is-link readonly label="Номер" placeholder="Номер места"
+              @click="showRoomPicker = true" />
+            <van-popup v-model:show="showRoomPicker" destroy-on-close round position="bottom">
+              <van-picker :model-value="roomPickerValue" title="Номер" :columns="openSpace"
+                @cancel="showRoomPicker = false" @confirm="onRoomConfirm" />
             </van-popup>
           </van-tab>
         </van-tabs>
       </div>
 
       <section class="butt">
-        <van-button
-          block
-          type="primary"
-          @click="book"
-          >Забронировать место</van-button
-        >
+        <van-button block type="primary" @click="book">Забронировать место</van-button>
       </section>
     </van-tab>
-    <van-tab
-      title="Другому"
-      name="other"
-      class="tab"
-    >
-      <van-field
-        v-model="toWhomFieldValue"
-        is-link
-        readonly
-        label="Кому"
-        placeholder="Кому"
-        @click="showToWhomPicker = true"
-      />
-      <van-popup
-        v-model:show="showToWhomPicker"
-        destroy-on-close
-        round
-        position="bottom"
-      >
-        <van-picker
-          :model-value="toWhomPickerValue"
-          title="Кому"
-          :columns="toWhom"
-          @cancel="showToWhomPicker = false"
-          @confirm="onToWhomConfirm"
-        />
+    <van-tab title="Другому" name="other" class="tab">
+      <van-field v-model="toWhomFieldValue" is-link readonly label="Кому" placeholder="Кому"
+        @click="showToWhomPicker = true" />
+      <van-popup v-model:show="showToWhomPicker" destroy-on-close round position="bottom">
+        <van-picker :model-value="toWhomPickerValue" title="Кому" :columns="toWhom" @cancel="showToWhomPicker = false"
+          @confirm="onToWhomConfirm" />
       </van-popup>
 
-      <van-field
-        v-model="fieldListValue"
-        is-link
-        readonly
-        label="ФИО"
-        placeholder="ФИО"
-        @click="showListPicker = true"
-      />
-      <van-popup
-        v-model:show="showListPicker"
-        destroy-on-close
-        round
-        position="bottom"
-      >
+      <van-field v-model="fieldListValue" is-link readonly label="ФИО" placeholder="ФИО"
+        @click="showListPicker = true" />
+      <van-popup v-model:show="showListPicker" destroy-on-close round position="bottom">
         <!-- <van-list :model-value="pickerValue" title="Слот" :columns="columns" @cancel="showPicker = false"
           @confirm="onConfirm" /> -->
-        <van-list
-          v-model:show="showListPicker"
-          v-model:loading="loading"
-          :finished="finished"
-          finished-text="Finished"
-          @load="onLoad"
-        >
-          <van-cell
-            v-for="item in list"
-            :key="item"
-            :title="item"
-            @click="choosePerson(item)"
-          />
+        <van-list v-model:show="showListPicker" v-model:loading="loading" :finished="finished" finished-text="Finished"
+          @load="onLoad">
+          <van-cell v-for="item in list" :key="item" :title="item" @click="choosePerson(item)" />
         </van-list>
       </van-popup>
 
-      <van-field
-        v-model="fieldValue"
-        is-link
-        readonly
-        label="Слот"
-        placeholder="Выберите слот"
-        @click="showPicker = true"
-      />
-      <van-popup
-        v-model:show="showPicker"
-        destroy-on-close
-        round
-        position="bottom"
-      >
-        <van-picker
-          :model-value="pickerValue"
-          title="Слот"
-          :columns="columns"
-          @cancel="showPicker = false"
-          @confirm="onConfirm"
-        />
+      <van-field v-model="fieldValue" is-link readonly label="Слот" placeholder="Выберите слот"
+        @click="showPicker = true" />
+      <van-popup v-model:show="showPicker" destroy-on-close round position="bottom">
+        <van-picker :model-value="pickerValue" title="Слот" :columns="columns" @cancel="showPicker = false"
+          @confirm="onConfirm" />
       </van-popup>
 
-      <van-cell
-        title="Дата"
-        :value="date"
-        @click="show = true"
-      />
-      <van-calendar
-        v-model:show="show"
-        @confirm="onCalendarConfirm"
-      />
+      <van-cell title="Дата" :value="date" @click="show = true" />
+      <van-calendar v-model:show="show" @confirm="onCalendarConfirm" />
 
       <section class="favorite-places">
         <h4>Ваши избранные места</h4>
-        <van-button
-          block
-          plain
-          type="primary"
-          @click="roomFieldValue = '814/16'"
-          >814/16</van-button
-        >
-        <van-button
-          block
-          plain
-          type="primary"
-          @click="roomFieldValue = '814/15'"
-          >814/15</van-button
-        >
+        <van-button block plain type="primary" @click="roomFieldValue = '814/16'">814/16</van-button>
+        <van-button block plain type="primary" @click="roomFieldValue = '814/15'">814/15</van-button>
       </section>
 
       <div>
-        <van-tabs
-          v-model:active="activeRoomTab"
-          type="card"
-          class="tab"
-          @click-tab="onClickTab"
-        >
-          <van-tab
-            title="Фиксированные"
-            name="fixed"
-            class="tab"
-          >
-            <van-field
-              v-model="roomFieldValue"
-              is-link
-              readonly
-              label="Номер"
-              placeholder="Номер"
-              @click="showRoomPicker = true"
-            />
-            <van-popup
-              v-model:show="showRoomPicker"
-              destroy-on-close
-              round
-              position="bottom"
-            >
-              <van-picker
-                :model-value="roomPickerValue"
-                title="Кому"
-                :columns="fixed"
-                @cancel="showRoomPicker = false"
-                @confirm="onRoomConfirm"
-              />
+        <van-tabs v-model:active="activeRoomTab" type="card" class="tab" @click-tab="onClickTab">
+          <van-tab title="Фиксированные" name="fixed" class="tab">
+            <van-field v-model="roomFieldValue" is-link readonly label="Номер" placeholder="Номер комнаты"
+              @click="showRoomPicker = true" />
+            <van-popup v-model:show="showRoomPicker" destroy-on-close round position="bottom">
+              <van-picker :model-value="roomPickerValue" title="Номер" :columns="fixed" @cancel="showRoomPicker = false"
+                @confirm="onRoomConfirm" />
             </van-popup>
           </van-tab>
-          <van-tab
-            title="Кабинеты"
-            name="cabinets"
-            class="tab"
-          >
-            <van-field
-              v-model="roomFieldValue"
-              is-link
-              readonly
-              label="Номер"
-              placeholder="Номер"
-              @click="showRoomPicker = true"
-            />
-            <van-popup
-              v-model:show="showRoomPicker"
-              destroy-on-close
-              round
-              position="bottom"
-            >
-              <van-picker
-                :model-value="roomPickerValue"
-                title="Номер"
-                :columns="cabinets"
-                @cancel="showRoomPicker = false"
-                @confirm="onRoomConfirm"
-              />
+          <van-tab title="Кабинеты" name="cabinets" class="tab">
+            <van-field v-model="roomFieldValue" is-link readonly label="Номер" placeholder="Номер кабинета"
+              @click="showRoomPicker = true" />
+            <van-popup v-model:show="showRoomPicker" destroy-on-close round position="bottom">
+              <van-picker :model-value="roomPickerValue" title="Номер" :columns="cabinets"
+                @cancel="showRoomPicker = false" @confirm="onRoomConfirm" />
             </van-popup>
           </van-tab>
-          <van-tab
-            title="Опен-спейс"
-            name="open-space"
-            class="tab"
-          >
-            <van-field
-              v-model="roomFieldValue"
-              is-link
-              readonly
-              label="Номер"
-              placeholder="Номер"
-              @click="showRoomPicker = true"
-            />
-            <van-popup
-              v-model:show="showRoomPicker"
-              destroy-on-close
-              round
-              position="bottom"
-            >
-              <van-picker
-                :model-value="roomPickerValue"
-                title="Номер"
-                :columns="openSpace"
-                @cancel="showRoomPicker = false"
-                @confirm="onRoomConfirm"
-              />
+          <van-tab title="Опен-спейс" name="open-space" class="tab">
+            <van-field v-model="roomFieldValue" is-link readonly label="Номер" placeholder="Номер места"
+              @click="showRoomPicker = true" />
+            <van-popup v-model:show="showRoomPicker" destroy-on-close round position="bottom">
+              <van-picker :model-value="roomPickerValue" title="Номер" :columns="openSpace"
+                @cancel="showRoomPicker = false" @confirm="onRoomConfirm" />
             </van-popup>
           </van-tab>
         </van-tabs>
       </div>
 
       <div class="container">
-        <van-button
-          block
-          type="primary"
-          @click="book"
-          >Забронировать место</van-button
-        >
+        <van-button block type="primary" @click="book">Забронировать место</van-button>
       </div>
     </van-tab>
   </van-tabs>
@@ -416,11 +157,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, useId } from 'vue';
 import router from '../router';
 import { useStateStore } from '../stores/state';
+import { useBookingsStore } from '../stores/bookings';
 
 const stateStore = useStateStore();
+const bookingsStore = useBookingsStore();
 
 const activeTab = ref(0);
 
@@ -444,8 +187,13 @@ const date = ref('');
 const show = ref(false);
 
 const formatDate = (date) => {
-  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+
+  return `${day}.${month}.${year}`;
 };
+
 const onCalendarConfirm = (value) => {
   show.value = false;
   date.value = formatDate(value);
@@ -537,7 +285,17 @@ const onClickTab = () => {
 const book = () => {
   router.replace({ path: '/journal' });
 
+  bookingsStore.addBooking({
+    id: Math.random().toString(36).substr(2, 9),
+    date: date.value,
+    slot: fieldValue.value,
+    fieldListValue: fieldListValue.value,
+    toWhom: toWhomFieldValue.value,
+    room: roomFieldValue.value,
+  });
+
   console.log({
+    id: useId(),
     date: date.value,
     slot: fieldValue.value,
     fieldListValue: fieldListValue.value,
