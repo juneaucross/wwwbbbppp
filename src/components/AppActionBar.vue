@@ -10,12 +10,14 @@
       </van-popup>
 
       <van-cell title="Дата" :value="date" @click="show = true" />
-      <van-calendar v-model:show="show" @confirm="onCalendarConfirm" />
+      <van-calendar v-model:show="show" @confirm="onCalendarConfirm" color="var(--wpb-primary-color)" />
 
       <section class="favorite-places">
         <h4>Ваши избранные места</h4>
-        <van-button block plain type="primary" @click="roomFieldValue = '814/16'">814/16</van-button>
-        <van-button block plain type="primary" @click="roomFieldValue = '814/15'">814/15</van-button>
+        <div class="favorite-places__buttons">
+          <van-button plain color="var(--wpb-primary-color)" @click="roomFieldValue = '814/16'">814/16</van-button>
+          <van-button plain color="var(--wpb-primary-color)" @click="roomFieldValue = '814/15'">814/15</van-button>
+        </div>
       </section>
 
       <div>
@@ -48,7 +50,7 @@
       </div>
 
       <section class="butt">
-        <van-button block type="primary" @click="book">Забронировать место</van-button>
+        <van-button block color="var(--wpb-accent-color)" @click="book">Забронировать место</van-button>
       </section>
     </van-tab>
     <van-tab title="Другому" name="other" class="tab">
@@ -78,12 +80,14 @@
       </van-popup>
 
       <van-cell title="Дата" :value="date" @click="show = true" />
-      <van-calendar v-model:show="show" @confirm="onCalendarConfirm" />
+      <van-calendar v-model:show="show" color="var(--wpb-primary-color)" @confirm="onCalendarConfirm" />
 
       <section class="favorite-places">
         <h4>Ваши избранные места</h4>
-        <van-button block plain type="primary" @click="roomFieldValue = '814/16'">814/16</van-button>
-        <van-button block plain type="primary" @click="roomFieldValue = '814/15'">814/15</van-button>
+        <div class="favorite-places__buttons">
+          <van-button plain color="var(--wpb-primary-color)" @click="roomFieldValue = '814/16'">814/16</van-button>
+          <van-button plain color="var(--wpb-primary-color)" @click="roomFieldValue = '814/15'">814/15</van-button>
+        </div>
       </section>
 
       <div>
@@ -116,53 +120,19 @@
       </div>
 
       <div class="container">
-        <van-button block type="primary" @click="book">Забронировать место</van-button>
+        <van-button block color="var(--wpb-accent-color)" @click="book">Забронировать место</van-button>
       </div>
     </van-tab>
   </van-tabs>
-  <!-- <div v-else-if="stateStore.state === 'room'">
-    <van-tabs v-model:active="activeRoomTab" type="card" class="tab" @click-tab="onClickTab">
-      <van-tab title="Фиксированные" name="fixed" class="tab">
-        <van-field v-model="roomFieldValue" is-link readonly label="Номер" placeholder="Номер"
-          @click="showRoomPicker = true" />
-        <van-popup v-model:show="showRoomPicker" destroy-on-close round position="bottom">
-          <van-picker :model-value="roomPickerValue" title="Кому" :columns="fixed" @cancel="showRoomPicker = false"
-            @confirm="onRoomConfirm" />
-        </van-popup>
-      </van-tab>
-      <van-tab title="Кабинеты" name="cabinets" class="tab">
-        <van-field v-model="roomFieldValue" is-link readonly label="Номер" placeholder="Номер"
-          @click="showRoomPicker = true" />
-        <van-popup v-model:show="showRoomPicker" destroy-on-close round position="bottom">
-          <van-picker :model-value="roomPickerValue" title="Номер" :columns="cabinets" @cancel="showRoomPicker = false"
-            @confirm="onRoomConfirm" />
-        </van-popup>
-      </van-tab>
-      <van-tab title="Опен-спейс" name="open-space" class="tab">
-        <van-field v-model="roomFieldValue" is-link readonly label="Номер" placeholder="Номер"
-          @click="showRoomPicker = true" />
-        <van-popup v-model:show="showRoomPicker" destroy-on-close round position="bottom">
-          <van-picker :model-value="roomPickerValue" title="Номер" :columns="openSpace" @cancel="showRoomPicker = false"
-            @confirm="onRoomConfirm" />
-        </van-popup>
-
-
-      </van-tab>
-    </van-tabs>
-
-    <div class="container">
-      <van-button block type="primary">Забронировать</van-button>
-    </div>
-  </div> -->
 </template>
 
 <script setup>
 import { ref, useId } from 'vue';
 import router from '../router';
-import { useStateStore } from '../stores/state';
+// import { useStateStore } from '../stores/state';
 import { useBookingsStore } from '../stores/bookings';
 
-const stateStore = useStateStore();
+// const stateStore = useStateStore();
 const bookingsStore = useBookingsStore();
 
 const activeTab = ref(0);
@@ -295,7 +265,7 @@ const book = () => {
   });
 
   console.log({
-    id: useId(),
+    // id: useId(),
     date: date.value,
     slot: fieldValue.value,
     fieldListValue: fieldListValue.value,
@@ -315,6 +285,19 @@ const book = () => {
   flex-direction: column;
   gap: 10px;
   padding: 10px;
+
+  h4 {
+    margin-bottom: 0;
+  }
+}
+
+.favorite-places__buttons {
+  display: flex;
+  gap: 10px;
+
+  button {
+    flex: 1;
+  }
 }
 
 h3 {

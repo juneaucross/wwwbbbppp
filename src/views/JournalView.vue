@@ -11,13 +11,13 @@
     </van-tab>
   </van-tabs>
 
-  <van-tabs v-model:active="active" animated>
+  <van-tabs v-model:active="active" animated color="var(--wpb-primary-color)" class="tab">
     <van-tab v-for="tab in computedDateTabs">
       <template #title>
         <div class="griddo">
           <span class=tab-day>{{ tab.day }}</span>
           <!-- content="tab.badge" -->
-          <van-badge class="tab-badge" v-if="tab.badge > 0" dot position="bottom-right">
+          <van-badge class="tab-badge" v-if="tab.badge > 0" dot position="bottom-right" color="var(--wpb-accent-color)">
             <div class="child" />
           </van-badge>
           <span class="tab-date">{{ tab.date }}</span>
@@ -28,14 +28,13 @@
         <div v-else>
           <van-card v-for="booking in currentDayBookings" :key="booking.id" :title="booking.date"
             :desc="`На ${booking.slot.toLowerCase()} ${booking.fieldListValue ? 'для ' + booking.fieldListValue : ''}`"
-            thumb="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg">
+            thumb="https://imageproxy.ru/img/resize/-x220/https/co-atmosphere.ru/storage/app/uploads/public/5da/5db/8d3/5da5db8d3ca4e186463768.jpg">
             <template #tags>
-              <van-tag plain type="primary">{{ booking.room }}</van-tag>
-              <!-- <van-tag plain type="primary">Tag</van-tag> -->
+              <van-tag mark color="var(--wpb-secondary-color)">{{ booking.room }}</van-tag>
             </template>
             <template #footer>
-              <van-button size="small" icon="delete-o" @click="bookingsStore.removeBooking(booking.id)" />
-              <!-- <van-button size="mini">Button</van-button> -->
+              <van-button size="small" icon="delete-o" color="var(--wpb-accent-color)"
+                @click="bookingsStore.removeBooking(booking.id)" />
             </template>
           </van-card>
         </div>
@@ -53,7 +52,7 @@ const bookingsStore = useBookingsStore();
 const activeTab = ref('mine');
 
 const active = ref(0);
-const dateTabs = { '11.09': 'Чт', '12.09': 'Пт', '13.09': 'Сб', '14.09': 'Вс', '15.09': 'Пн', '16.09': 'Вт', '17.09': 'Ср', '18.09': 'Чт', '19.09': 'Пт' };
+const dateTabs = { '19.09': 'Пт', '20.09': 'Сб', '21.09': 'Вс', '22.09': 'Пн', '23.09': 'Вт', '24.09': 'Ср', '25.09': 'Чт', '26.09': 'Пт', '27.09': 'Сб', '28.09': 'Вс', '29.09': 'Пн' };
 
 const computedDateTabs = computed(() => {
   return Object.entries(dateTabs).map(tab => {

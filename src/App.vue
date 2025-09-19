@@ -4,7 +4,7 @@ import AppHeader from '@/components/AppHeader.vue';
 </script>
 
 <template>
-  <van-config-provider theme="dark">
+  <van-config-provider theme="light">
     <AppHeader />
 
     <router-view />

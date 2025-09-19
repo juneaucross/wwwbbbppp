@@ -1,0 +1,13 @@
+:root {
+  --wpb-primary-color: #24226a;
+  --wpb-accent-color: #f55b41;
+  --wpb-secondary-color: #007bee;
+
+  --van-tabs-default-color: var(--wpb-primary-color);
+
+  --van-picker-option-text-color: var(--wpb-primary-color);
+
+  --van-card-background: var(--wpb-primary-color);
+  --van-card-text-color: #fff;
+  --van-card-desc-color: #fff;
+}
