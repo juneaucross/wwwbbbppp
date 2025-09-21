@@ -1,8 +1,15 @@
 <template>
   <header class="header">
-    <van-button color="transparent" icon="send-gift-o" @click="stateStore.changeState(stateStore.prevState)" />
+    <van-button
+      color="transparent"
+      icon="send-gift-o"
+      @click="stateStore.changeState(stateStore.prevState)"
+    />
     <h1>{{ router.currentRoute.value.meta.title }}</h1>
-    <van-button color="transparent" icon="info-o" />
+    <van-button
+      color="transparent"
+      icon="info-o"
+    />
   </header>
 </template>
 

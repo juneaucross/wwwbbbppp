@@ -1,43 +1,64 @@
 <template>
-  <van-tabs v-model:active="activeTab" type="card" class="tab">
-    <van-tab title="Мои" name="mine" class="tab">
+  <van-tabs
+    v-model:active="activeTab"
+    type="card"
+    class="tab"
+  >
+    <van-tab
+      title="Мои"
+      name="mine"
+      class="tab"
+    >
       <h3>Мои</h3>
     </van-tab>
-    <van-tab title="Отдела" name="department" class="tab">
+    <van-tab
+      title="Отдела"
+      name="department"
+      class="tab"
+    >
       <h3>Отдела</h3>
     </van-tab>
-    <van-tab title="КИР" name="kir" class="tab">
+    <van-tab
+      title="КИР"
+      name="kir"
+      class="tab"
+    >
       <h3>КИР</h3>
     </van-tab>
   </van-tabs>
 
-  <van-tabs v-model:active="active" animated color="var(--wpb-primary-color)" class="tab">
-    <van-tab v-for="tab in computedDateTabs">
+  <van-tabs
+    v-model:active="active"
+    animated
+    color="var(--wpb-primary-color)"
+    class="tab"
+  >
+    <van-tab
+      v-for="tab in computedDateTabs"
+      :key="tab.date"
+    >
       <template #title>
         <div class="griddo">
-          <span class=tab-day>{{ tab.day }}</span>
+          <span class="tab-day">{{ tab.day }}</span>
           <!-- content="tab.badge" -->
-          <van-badge class="tab-badge" v-if="tab.badge > 0" dot position="bottom-right" color="var(--wpb-accent-color)">
+          <van-badge
+            v-if="tab.badge > 0"
+            class="tab-badge"
+            dot
+            position="bottom-right"
+            color="var(--wpb-accent-color)"
+          >
             <div class="child" />
           </van-badge>
           <span class="tab-date">{{ tab.date }}</span>
         </div>
       </template>
       <div>
-        <van-empty v-if="!currentDayBookings.length" description="No bookings yet" />
-        <div v-else>
-          <van-card v-for="booking in currentDayBookings" :key="booking.id" :title="booking.date"
-            :desc="`На ${booking.slot.toLowerCase()} ${booking.fieldListValue ? 'для ' + booking.fieldListValue : ''}`"
-            thumb="https://imageproxy.ru/img/resize/-x220/https/co-atmosphere.ru/storage/app/uploads/public/5da/5db/8d3/5da5db8d3ca4e186463768.jpg">
-            <template #tags>
-              <van-tag mark color="var(--wpb-secondary-color)">{{ booking.room }}</van-tag>
-            </template>
-            <template #footer>
-              <van-button size="small" icon="delete-o" color="var(--wpb-accent-color)"
-                @click="bookingsStore.removeBooking(booking.id)" />
-            </template>
-          </van-card>
-        </div>
+        <BookingList
+          :bookings="currentDayBookings"
+          empty-description="No bookings yet"
+          @remove="bookingsStore.removeBooking($event)"
+        />
       </div>
     </van-tab>
   </van-tabs>
@@ -46,23 +67,54 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useBookingsStore } from '../stores/bookings';
+import BookingList from '@/components/BookingList.vue';
 
 const bookingsStore = useBookingsStore();
 
 const activeTab = ref('mine');
 
 const active = ref(0);
-const dateTabs = { '19.09': 'Пт', '20.09': 'Сб', '21.09': 'Вс', '22.09': 'Пн', '23.09': 'Вт', '24.09': 'Ср', '25.09': 'Чт', '26.09': 'Пт', '27.09': 'Сб', '28.09': 'Вс', '29.09': 'Пн' };
+
+const NUM_DAYS_TO_SHOW = 11;
+const weekdayFormatter = new Intl.DateTimeFormat('ru-RU', { weekday: 'short' });
+
+const formatWeekday = (date) => {
+  const raw = weekdayFormatter.format(date).replace(/\.$/, '');
+  return raw.charAt(0).toUpperCase() + raw.slice(1);
+};
+
+const formatShortDate = (date) => {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  return `${day}.${month}`;
+};
+
+const generateDateRange = (count) => {
+  const today = new Date();
+  const result = [];
+  for (let i = 0; i < count; i++) {
+    const dt = new Date(today);
+    dt.setDate(today.getDate() + i);
+    result.push({ date: formatShortDate(dt), day: formatWeekday(dt) });
+  }
+  return result;
+};
+
+const baseDateTabs = computed(() => generateDateRange(NUM_DAYS_TO_SHOW));
 
 const computedDateTabs = computed(() => {
-  return Object.entries(dateTabs).map(tab => {
-    const withBookings = bookingsStore.bookings.filter(booking => booking.date.includes(tab[0]));
-    return { date: tab[0], day: tab[1], badge: withBookings.length };
+  return baseDateTabs.value.map((tab) => {
+    const withBookings = bookingsStore.bookings.filter((booking) =>
+      booking.date.includes(tab.date),
+    );
+    return { date: tab.date, day: tab.day, badge: withBookings.length };
   });
 });
 
 const currentDayBookings = computed(() => {
-  return bookingsStore.bookings.filter(booking => booking.date.includes(Object.keys(dateTabs)[active.value]));
+  const current = computedDateTabs.value[active.value];
+  if (!current) return [];
+  return bookingsStore.bookings.filter((booking) => booking.date.includes(current.date));
 });
 </script>
 
@@ -76,8 +128,8 @@ const currentDayBookings = computed(() => {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
-    "a b"
-    "c c";
+    'a b'
+    'c c';
 }
 
 .tab-day {

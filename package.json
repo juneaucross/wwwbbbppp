@@ -9,8 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/",
-    "format:check": "prettier --check ."
+    "format": "prettier --config .prettierrc.json --write .",
+    "format:check": "prettier --config .prettierrc.json --check ."
   },
   "resolutions": {
     "rollup": "4.50.0"
