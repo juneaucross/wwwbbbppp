@@ -4,6 +4,7 @@ import JournalView from '@/views/JournalView.vue';
 import FloorView from '@/views/FloorView.vue';
 import RoomView from '@/views/RoomView.vue';
 import LoginView from '@/views/LoginView.vue';
+import LogonView from '@/views/LogonView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
