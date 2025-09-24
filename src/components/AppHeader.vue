@@ -17,11 +17,10 @@
       closeable
       class="drawer"
     >
-      <van-image
-        width="90%"
-        style="padding-left: 16px"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFQhweSX-arDvu4jqlftQqNfhowjHD6yyTaw&s"
-      />
+      <div v-if="isAuthenticated">
+        <van-button @click="logoutPopup">Logout popup</van-button>
+        <van-button @click="logoutRedirect">Logout redirect</van-button>
+      </div>
 
       <van-cell-group>
         <van-cell
@@ -49,16 +48,27 @@
 <script setup>
 import { ref } from 'vue';
 import router from '../router';
-import { useStateStore } from '../stores/state';
 import { useUserStore } from '../stores/user';
+import { useIsAuthenticated, useMsal } from 'vue3-msal-plugin';
+
+const { instance } = useMsal();
+const isAuthenticated = useIsAuthenticated();
 
 const userStore = useUserStore();
 const { user } = userStore;
 
-const stateStore = useStateStore();
-
 const showDrawer = ref(false);
 const showUserData = ref(false);
+
+const logoutPopup = () => {
+  instance.logoutPopup({
+    mainWindowRedirectUri: '/',
+  });
+};
+
+const logoutRedirect = () => {
+  instance.logoutRedirect();
+};
 
 const drawerLinks = [
   {
