@@ -22,12 +22,21 @@
           v-if="user"
           style="padding-right: 16px; padding-left: 16px"
         >
+          <p>Authenticated as:</p>
           <div>Name: {{ user.name }}</div>
           <div>Username: {{ user.username }}</div>
         </div>
 
         <van-button @click="logoutPopup">Logout popup</van-button>
         <van-button @click="logoutRedirect">Logout redirect</van-button>
+      </div>
+      <div
+        v-else
+        style="padding-right: 16px; padding-left: 16px"
+      >
+        <p>Not authenticated</p>
+        <van-button @click="loginPopup">Login popup</van-button>
+        <van-button @click="loginRedirect">Login redirect</van-button>
       </div>
 
       <van-cell-group>
@@ -59,7 +68,7 @@ import router from '../router';
 import { useUserStore } from '../stores/user';
 import { useIsAuthenticated, useMsal } from 'vue3-msal-plugin';
 
-const { instance } = useMsal();
+const { instance, loginRequest } = useMsal();
 const isAuthenticated = useIsAuthenticated();
 
 const userStore = useUserStore();
@@ -67,6 +76,14 @@ const { user } = userStore;
 
 const showDrawer = ref(false);
 const showUserData = ref(false);
+
+const loginPopup = () => {
+  instance.loginPopup(loginRequest);
+};
+
+const loginRedirect = () => {
+  instance.loginRedirect(loginRequest);
+};
 
 const logoutPopup = () => {
   instance.logoutPopup({
