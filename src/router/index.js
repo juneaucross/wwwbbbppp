@@ -15,7 +15,6 @@ const router = createRouter({
     { path: '/floor', name: 'Floor', component: FloorView, meta: { title: 'Этаж' } },
     { path: '/room', name: 'Room', component: RoomView, meta: { title: 'КИР' } },
     { path: '/logon', name: 'Logon', component: LogonView, meta: { title: 'Logon' } },
-    { path: '/:catchAll(.*)', redirect: '/' },
   ],
 });
 
