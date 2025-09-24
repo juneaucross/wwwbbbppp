@@ -52,7 +52,8 @@ import router from '../router';
 import { useStateStore } from '../stores/state';
 import { useUserStore } from '../stores/user';
 
-const user = useUserStore();
+const userStore = useUserStore();
+const { user } = userStore;
 
 const stateStore = useStateStore();
 
