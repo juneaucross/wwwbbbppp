@@ -61,6 +61,8 @@ newMsalInstance.addEventCallback((event) => {
     'account' refers to the account data obtained from the MSAL instance.
     */
     updateUser(account);
+
+    console.log(123);
   }
 });
 
@@ -73,6 +75,7 @@ if (activeAccount) {
     'account' refers to the account data obtained from the MSAL instance.
     */
   updateUser(activeAccount);
+  console.log(321);
 }
 
 app.mount('#app');
