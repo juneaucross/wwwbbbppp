@@ -16,11 +16,15 @@
     "rollup": "4.50.0"
   },
   "dependencies": {
+    "@panzoom/panzoom": "^4.6.0",
+    "openseadragon": "^5.0.1",
+    "photoswipe": "^5.4.4",
     "pinia": "^3.0.3",
     "vant": "^4.9.21",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1",
-    "vue3-msal-plugin": "^1.0.5"
+    "vue3-msal-plugin": "^1.0.5",
+    "zoomist": "^2.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.31.0",

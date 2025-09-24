@@ -1,50 +1,53 @@
 <template>
-  <div
-    id="openseadragon1"
-    class="openseadragon-viewer"
-  ></div>
+  <van-tabs
+    v-model:active="activeTab"
+    type="card"
+    class="tab"
+  >
+    <van-tab
+      title="OSD"
+      name="osd"
+      class="tab"
+    >
+      <SuperOpenSeaDragon />
+    </van-tab>
+    <van-tab
+      title="Panzoom"
+      name="panzoom"
+      class="tab"
+    >
+      <SuperPanzoom />
+    </van-tab>
+    <van-tab
+      title="PhotoSwipe"
+      name="photoswipe"
+      class="tab"
+    >
+      <SuperPhotoSwipe />
+    </van-tab>
+    <van-tab
+      title="Zoomist"
+      name="zoomist"
+      class="tab"
+    >
+      <SuperZoomist />
+    </van-tab>
+  </van-tabs>
 </template>
 
 <script setup>
-import OpenSeadragon from 'openseadragon';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { ref } from 'vue';
 
-const viewer = ref(null);
+import SuperOpenSeaDragon from '@/components/SuperOpenSeaDragon.vue';
+import SuperPanzoom from '@/components/SuperPanzoom.vue';
+import SuperPhotoSwipe from '@/components/SuperPhotoSwipe.vue';
+import SuperZoomist from '@/components/SuperZoomist.vue';
 
-onMounted(() => {
-  try {
-    viewer.value = OpenSeadragon({
-      id: 'openseadragon1',
-      prefixUrl: 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/3.1.0/images/',
-      tileSources: {
-        type: 'image',
-        url: 'openseadragon/floor2.jpg',
-      },
-      showZoomControl: false,
-      showHomeControl: false,
-      showFullPageControl: true,
-      showRotationControl: false,
-    });
-  } catch (error) {
-    console.error('Error initializing OpenSeadragon:', error);
-  }
-});
-
-onUnmounted(() => {
-  if (viewer.value) {
-    try {
-      viewer.value.destroy();
-    } catch (error) {
-      console.warn('Error destroying OpenSeadragon:', error);
-    }
-  }
-});
+const activeTab = ref(0);
 </script>
 
 <style scoped>
-.openseadragon-viewer {
-  width: 100%;
-  height: 80vh;
-  margin-top: 20px;
+.tab {
+  margin-top: 10px;
 }
 </style>
