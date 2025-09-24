@@ -18,6 +18,11 @@
       class="drawer"
     >
       <div v-if="isAuthenticated">
+        <div v-if="user">
+          <span>Name: {{ user.name }}</span>
+          <span>Username: {{ user.username }}</span>
+        </div>
+
         <van-button @click="logoutPopup">Logout popup</van-button>
         <van-button @click="logoutRedirect">Logout redirect</van-button>
       </div>
