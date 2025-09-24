@@ -64,6 +64,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import router from '../router';
 import { useUserStore } from '../stores/user';
 import { useIsAuthenticated, useMsal } from 'vue3-msal-plugin';
@@ -72,7 +73,7 @@ const { instance, loginRequest } = useMsal();
 const isAuthenticated = useIsAuthenticated();
 
 const userStore = useUserStore();
-const { user } = userStore;
+const { user } = storeToRefs(userStore);
 
 const showDrawer = ref(false);
 const showUserData = ref(false);
