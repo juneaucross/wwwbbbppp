@@ -3,7 +3,7 @@
     <van-button
       color="transparent"
       icon="send-gift-o"
-      @click="stateStore.changeState(stateStore.prevState)"
+      @click="showUserData = true"
     />
     <h1>{{ router.currentRoute.value.meta.title }}</h1>
     <van-button
