@@ -33,6 +33,16 @@
         />
       </van-cell-group>
     </van-popup>
+
+    <van-popup
+      v-model:show="showUserData"
+      position="left"
+      closeable
+      class="drawer"
+    >
+      <pre v-if="user">{{ user }}</pre>
+      <pre v-else>No user data</pre>
+    </van-popup>
   </header>
 </template>
 
@@ -40,10 +50,14 @@
 import { ref } from 'vue';
 import router from '../router';
 import { useStateStore } from '../stores/state';
+import { useUserStore } from '../stores/user';
+
+const user = useUserStore();
 
 const stateStore = useStateStore();
 
 const showDrawer = ref(false);
+const showUserData = ref(false);
 
 const drawerLinks = [
   {
