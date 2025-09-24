@@ -45,15 +45,16 @@ if (accounts.length > 0) {
 }
 
 const { updateUser } = useUserStore();
+const userStore = useUserStore();
 
 // Add an event callback to the MSAL instance
-newMsalInstance.addEventCallback((event) => {
+newMsalInstance.addEventCallback(async (event) => {
   // If the event is a successful login and the event has a payload
   if (event.eventType === EventType.LOGIN_SUCCESS && event.payload) {
     // Cast the payload to an AuthenticationResult
     const payload = event.payload;
     // Get the account from the payload
-    const account = payload.account;
+    const account = await payload.account;
     // Set the account as the active account in the MSAL instance
     newMsalInstance.setActiveAccount(account);
 
@@ -63,6 +64,8 @@ newMsalInstance.addEventCallback((event) => {
     updateUser(account);
 
     console.log(123);
+    console.log(333, account);
+    console.log(444, userStore.user);
   }
 });
 
