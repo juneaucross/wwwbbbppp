@@ -27,8 +27,8 @@ const msalConfig = {
   auth: {
     clientId: import.meta.env.VITE_AZURE_CLIENT_ID,
     authority: import.meta.env.VITE_AZURE_INSTANCE + import.meta.env.VITE_AZURE_TENANT_ID,
-    redirectUri: 'https://wwwbbbppp.vercel.app/logon', // Must be registered as a SPA redirectURI on your app registration
-    postLogoutRedirectUri: 'https://wwwbbbppp.vercel.app/logon', // Must be registered as a SPA redirectURI on your app registration
+    redirectUri: 'https://wwwbbbppp.vercel.app', // Must be registered as a SPA redirectURI on your app registration
+    postLogoutRedirectUri: 'https://wwwbbbppp.vercel.app', // Must be registered as a SPA redirectURI on your app registration
   },
   cache: {
     cacheLocation: 'localStorage',
