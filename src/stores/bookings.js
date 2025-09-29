@@ -12,5 +12,14 @@ export const useBookingsStore = defineStore('bookings', () => {
     bookings.value = bookings.value.filter((booking) => booking.id !== bookingId);
   };
 
-  return { bookings, removeBooking, addBooking };
+  const events = ref(
+    localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [],
+  );
+
+  const setEvents = (events) => {
+    events.value = events;
+    localStorage.setItem('events', JSON.stringify(value));
+  };
+
+  return { bookings, removeBooking, addBooking, events, setEvents };
 });
