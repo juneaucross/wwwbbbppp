@@ -18,22 +18,20 @@
     :events="flteredEvents"
     :view-date="stringToDate(date)"
     @event-create="createEvent"
+    @event-delete="onEventDelete"
   />
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import DateSelector from '@/components/DateSelector.vue';
 import PickerField from '@/components/PickerField.vue';
-// import { useBookingsStore } from '../stores/bookings';
 import { VueCal, addDatePrototypes, stringToDate, useLocale } from 'vue-cal';
 import Ru from 'vue-cal/i18n/ru';
 import 'vue-cal/style';
 
 useLocale(Ru);
 addDatePrototypes();
-
-// const store = useBookingsStore();
 
 const config = {
   hideWeekends: true,
@@ -50,142 +48,7 @@ const config = {
   // xs: true,
 };
 
-const events = [
-  {
-    // style: {
-    //   top: '27.77777777777778%',
-    //   height: '5.555555555555557%',
-    // },
-    startMinutes: 690,
-    endMinutes: 720,
-    start: new Date('2025-09-29T08:30:00.000Z'),
-    end: new Date('2025-09-29T09:00:00.000Z'),
-    title: 'New Event!123  🎉',
-    room: '108',
-    startFormatted: '2025-09-29',
-    endFormatted: '2025-09-29',
-    // _: {
-    //   id: 1,
-    //   multiday: false,
-    //   startFormatted: '2025-09-29',
-    //   endFormatted: '2025-09-29',
-    //   startMinutes: 690,
-    //   endMinutes: 720,
-    //   startTimeFormatted24: '11:30',
-    //   startTimeFormatted12: '11:30 AM',
-    //   endTimeFormatted24: '12:00',
-    //   endTimeFormatted12: '12:00 PM',
-    //   duration: 30,
-    //   deleting: false,
-    //   deleted: false,
-    //   cachedStart: 1759134600000,
-    //   cachedEnd: 1759136400000,
-    //   $el: {},
-    // },
-  },
-  {
-    // style: {
-    //   top: '44.44444444444444%',
-    //   height: '22.22222222222223%',
-    // },
-    startMinutes: 780,
-    endMinutes: 900,
-    start: new Date('2025-09-30T06:00:00.000Z'),
-    end: new Date('2025-09-30T09:00:00.000Z'),
-    title: 'New Event21! 🎉',
-    room: '161',
-    startFormatted: '2025-09-30',
-    endFormatted: '2025-09-30',
-    // _: {
-    //   id: 2,
-    //   multiday: false,
-    //   startFormatted: '2025-09-30',
-    //   endFormatted: '2025-09-30',
-    //   startMinutes: 780,
-    //   endMinutes: 900,
-    //   startTimeFormatted24: '13:00',
-    //   startTimeFormatted12: '1:00 PM',
-    //   endTimeFormatted24: '15:00',
-    //   endTimeFormatted12: '3:00 PM',
-    //   duration: 120,
-    //   deleting: false,
-    //   deleted: false,
-    //   cachedStart: 1759215600000,
-    //   cachedEnd: 1759222800000,
-    //   $el: {
-    //     _endId: 1,
-    //   },
-    // },
-  },
-  {
-    // style: {
-    //   top: '44.44444444444444%',
-    //   height: '22.22222222222223%',
-    // },
-    startMinutes: 960,
-    endMinutes: 1080,
-    start: new Date('2025-09-30T10:30:00.000Z'),
-    end: new Date('2025-09-30T12:30:00.000Z'),
-    title: 'New Event22! 🎉',
-    room: '161',
-    startFormatted: '2025-09-30',
-    endFormatted: '2025-09-30',
-    // _: {
-    //   id: 3,
-    //   multiday: false,
-    //   startFormatted: '2025-09-30',
-    //   endFormatted: '2025-09-30',
-    //   startMinutes: 960,
-    //   endMinutes: 1080,
-    //   startTimeFormatted24: '16:00',
-    //   startTimeFormatted12: '4:00 PM',
-    //   endTimeFormatted24: '18:00',
-    //   endTimeFormatted12: '6:00 PM',
-    //   duration: 120,
-    //   deleting: false,
-    //   deleted: false,
-    //   cachedStart: 1759215600000,
-    //   cachedEnd: 1759222800000,
-    //   $el: {
-    //     _endId: 1,
-    //   },
-    // },
-  },
-  {
-    // style: {
-    //   top: '44.44444444444444%',
-    //   height: '22.22222222222223%',
-    // },
-    startMinutes: 780,
-    endMinutes: 900,
-    start: new Date('2025-09-30T10:00:00.000Z'),
-    end: new Date('2025-09-30T12:00:00.000Z'),
-    title: 'New Event23! 🎉',
-    room: '108',
-    startFormatted: '2025-09-30',
-    endFormatted: '2025-09-30',
-    // _: {
-    //   id: 4,
-    //   multiday: false,
-    //   startFormatted: '2025-09-30',
-    //   endFormatted: '2025-09-30',
-    //   startMinutes: 780,
-    //   endMinutes: 900,
-    //   startTimeFormatted24: '13:00',
-    //   startTimeFormatted12: '1:00 PM',
-    //   endTimeFormatted24: '15:00',
-    //   endTimeFormatted12: '3:00 PM',
-    //   duration: 120,
-    //   deleting: false,
-    //   deleted: false,
-    //   cachedStart: 1759215600000,
-    //   cachedEnd: 1759222800000,
-    //   $el: {
-    //     _endId: 1,
-    //   },
-    // },
-  },
-];
+const events = ref([]);
 
 const slotsColumns = [
   { text: '108', value: '108' },
@@ -197,29 +60,89 @@ const slotPickerValue = ref(['108']);
 const date = ref(new Date(new Date()).format());
 
 const flteredEvents = computed(() => {
-  return events.filter((event) => {
+  return events.value.filter((event) => {
     return event.startFormatted === date.value && event.room === slotFieldValue.value;
   });
 });
 
-watch(flteredEvents, () => {
-  console.log(flteredEvents.value);
-});
-
-// const events = store.events;
-
 const createEvent = ({ event, resolve }) => {
-  resolve({
-    ...event,
-    start: new Date(event.start),
-    end: new Date(event.end),
-    startFormatted: new Date(event.start).format(),
-    endFormatted: new Date(event.end).format(),
-    title: 'New Event! 🎉',
+  const start = new Date(event.start);
+  let end = new Date(event.end);
+
+  const MIN_MS = 30 * 60 * 1000;
+  const MAX_MS = 3 * 60 * 60 * 1000;
+  const durationMs = end.getTime() - start.getTime();
+  if (durationMs < MIN_MS) {
+    end = new Date(start.getTime() + MIN_MS);
+  } else if (durationMs > MAX_MS) {
+    end = new Date(start.getTime() + MAX_MS);
+  }
+  const room = slotFieldValue.value;
+  const day = start.format();
+
+  const existingSameRoomSameDay = events.value.filter((e) => {
+    const eStart = new Date(e.start);
+    return (e.room || room) === room && (e.startFormatted || eStart.format()) === day;
   });
-  // .then(() => {
-  //   // store.setEvents(events);
-  //   console.log(events);
-  // });
+
+  const computedOverlaps = existingSameRoomSameDay.filter((e) => {
+    const eStart = new Date(e.start);
+    const eEnd = new Date(e.end);
+    return start < eEnd && end > eStart;
+  });
+
+  if (computedOverlaps.length) {
+    console.warn('[vue-cal] Overlapping event blocked', {
+      newEvent: { start, end, room, day },
+      overlaps: computedOverlaps,
+    });
+    resolve(false);
+    return;
+  }
+
+  const newEvent = {
+    ...event,
+    id: event.id || Math.random().toString(36).slice(2),
+    start,
+    end,
+    startFormatted: day,
+    endFormatted: end.format(),
+    room,
+    title: event.title || 'New Event! 🎉',
+    draggable: false,
+    resizable: false,
+  };
+
+  events.value.push(newEvent);
+
+  resolve(false);
+};
+
+const onEventDelete = (payload) => {
+  const deletedEvent = payload && payload.event ? payload.event : payload;
+  if (!deletedEvent) return;
+
+  if (deletedEvent.id) {
+    events.value = events.value.filter((e) => e.id !== deletedEvent.id);
+    return;
+  }
+
+  const isSameEvent = (a, b) => {
+    const aStart = new Date(a.start).getTime();
+    const bStart = new Date(b.start).getTime();
+    const aEnd = new Date(a.end).getTime();
+    const bEnd = new Date(b.end).getTime();
+    return (
+      aStart === bStart &&
+      aEnd === bEnd &&
+      (a.room || '') === (b.room || '') &&
+      (a.title || '') === (b.title || '')
+    );
+  };
+
+  const index = events.value.findIndex((e) => isSameEvent(e, deletedEvent));
+  if (index !== -1) {
+    events.value.splice(index, 1);
+  }
 };
 </script>
