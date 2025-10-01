@@ -78,6 +78,7 @@ const { user } = storeToRefs(userStore);
 const showDrawer = ref(false);
 const showUserData = ref(false);
 
+// TODO: remove unused login/logout
 const loginPopup = () => {
   instance.loginPopup(loginRequest);
 };
@@ -96,6 +97,7 @@ const logoutRedirect = () => {
   instance.logoutRedirect();
 };
 
+// TODO: add links
 const drawerLinks = [
   {
     title: 'Сообщение об ошибке',

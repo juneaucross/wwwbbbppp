@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import Panzoom from '@panzoom/panzoom';
+import Panzoom from '@panzoom/panzoom'; // https://github.com/timmywil/panzoom
 
 import { ref, useTemplateRef, onMounted, onUnmounted } from 'vue';
 
@@ -103,6 +103,6 @@ onUnmounted(() => {
 
 .panzoom-container {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 150px);
 }
 </style>

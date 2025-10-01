@@ -8,6 +8,7 @@
   </div>
 </template>
 
+// TODO: refactor login screen
 <script setup>
 import { useMsal } from 'vue3-msal-plugin';
 

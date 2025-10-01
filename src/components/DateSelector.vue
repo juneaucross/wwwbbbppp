@@ -22,7 +22,7 @@ import { ref } from 'vue';
 const props = defineProps({
   label: { type: String, default: 'Дата' },
   modelValue: { type: String, default: '' },
-  isForKir: { type: Boolean, default: false },
+  forKir: { type: Boolean, default: false },
 });
 
 const emit = defineEmits(['update:modelValue', 'confirm']);
@@ -36,7 +36,7 @@ const formatDate = (date) => {
   const day = String(date.getDate()).padStart(2, '0');
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const year = date.getFullYear();
-  return props.isForKir ? `${year}-${month}-${day}` : `${day}.${month}.${year}`;
+  return props.forKir ? `${year}-${month}-${day}` : `${day}.${month}.${year}`;
 };
 
 const onConfirm = (value) => {

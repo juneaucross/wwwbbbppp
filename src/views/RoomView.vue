@@ -1,7 +1,7 @@
 <template>
   <DateSelector
     v-model="date"
-    is-for-kir
+    for-kir
     label="Дата"
   />
   <PickerField
@@ -26,7 +26,7 @@
 import { ref, computed } from 'vue';
 import DateSelector from '@/components/DateSelector.vue';
 import PickerField from '@/components/PickerField.vue';
-import { VueCal, addDatePrototypes, stringToDate, useLocale } from 'vue-cal';
+import { VueCal, addDatePrototypes, stringToDate, useLocale } from 'vue-cal'; //https://antoniandre.github.io/vue-cal/
 import Ru from 'vue-cal/i18n/ru';
 import 'vue-cal/style';
 
